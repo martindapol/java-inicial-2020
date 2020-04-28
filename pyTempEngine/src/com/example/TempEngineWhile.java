@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author MARTIN
  */
-public class TempEngineRepeat {
+public class TempEngineWhile {
 
     /**
      * @param args the command line arguments
