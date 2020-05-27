@@ -5,8 +5,6 @@
  */
 package com.example.dominio;
 
-import java.util.Random;
-
 /**
  *
  * @author MARTIN
@@ -32,6 +30,7 @@ public class Password {
 
     public void setLongitud(int longitud) {
         this.longitud = longitud;
+        longitud++;
         generarPassword();
     }
 
