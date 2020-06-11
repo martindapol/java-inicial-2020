@@ -45,7 +45,6 @@ public class Velero extends Barco {
     @Override
     public String toString() {
         //especializando el comportamiento heredado
-        
         return super.toString() + " |Costo de servicios $ " + costoServicios; 
     }
 }

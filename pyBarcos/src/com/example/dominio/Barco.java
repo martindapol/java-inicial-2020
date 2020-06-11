@@ -42,9 +42,7 @@ public abstract class Barco extends Object{
         this.patente = patente;
     }
 
-    public float calcularCuota() {
-        return 0;
-    }
+    public abstract float calcularCuota();
 
     @Override
     public String toString() {
