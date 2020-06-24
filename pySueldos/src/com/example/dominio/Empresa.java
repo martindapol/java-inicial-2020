@@ -6,6 +6,8 @@
 package com.example.dominio;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -50,10 +52,14 @@ public class Empresa {
         return presupuesto;
     }
 
-    public String mostrarNomina() {
-        String nomina = "";
+    public String mostrarNomina(int criterio) {
+        StringBuilder nomina = new StringBuilder("");
 
-        for (int i = 0; i < empleados.size() - 1; i++) {
+        if(criterio != 1)
+            Collections.sort(empleados, new CriterioPuestoComparator());
+        else
+            Collections.sort(empleados);
+       /* for (int i = 0; i < empleados.size() - 1; i++) {
             for (int j = i + 1; j < empleados.size(); j++) {
                 if (empleados.get(i).getNombre().compareTo(empleados.get(j).getNombre()) > 0) {
                     Trabajador aux = empleados.get(i);
@@ -62,11 +68,12 @@ public class Empresa {
                 }
             }
         }
-
+        */
+        
         for (Trabajador empleado : empleados) {
-            nomina += empleado.toString() + "\n";
+            nomina.append(empleado.toString() + "\n");
         }
 
-        return nomina;
+        return nomina.toString();
     }
 }

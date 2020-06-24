@@ -9,7 +9,7 @@ package com.example.dominio;
  *
  * @author lautaro
  */
-public abstract class Trabajador extends Object{
+public abstract class Trabajador implements Comparable<Trabajador>{
     private int legajo;
     private String nombre, fechaDeC,puesto;
 
@@ -35,7 +35,6 @@ public abstract class Trabajador extends Object{
         this.legajo = legajo;
     }
 
-   
     public String getNombre() {
         return nombre;
     }
@@ -67,4 +66,14 @@ public abstract class Trabajador extends Object{
     public String toString() {
         return "Nombre del empleado: "+nombre+" Legajo:  "+legajo+" Fecha de contrato: "+ fechaDeC + " Puesto: " + puesto;
     }
+
+    @Override
+    public int compareTo(Trabajador t) {
+       return this.nombre.compareTo(t.nombre) ;
+       //Si == 0 -> son iguales
+       //Si > 0 -> this > t
+       //Si < 0 -> this < t
+    }
+    
+     
 }
