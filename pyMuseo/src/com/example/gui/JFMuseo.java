@@ -9,12 +9,10 @@ import com.example.domain.Historico;
 import com.example.domain.ObjetoExp;
 import com.example.domain.ObraArte;
 import com.example.domain.Sala;
-import com.example.services.GestorSala;
+import com.example.services.GestorMuseo;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,16 +20,17 @@ import javax.swing.table.DefaultTableModel;
  * @author MARTIN
  */
 public class JFMuseo extends javax.swing.JFrame {
-
+    private GestorMuseo gestor;
     /**
      * Creates new form JFMuseo
      */
-    private GestorSala gestor;
+    //private GestorSala gestor;
     
     public JFMuseo() {
         initComponents();
+        //registrando el escucha al boton Consultar:
         jbConsultar.addMouseListener(new EscuchaMouse());
-        gestor = new GestorSala();
+        gestor = new GestorMuseo();
         DefaultComboBoxModel modelo = new DefaultComboBoxModel(gestor.getSalas());
         jcSalas.setModel(modelo);
         //abrir en el centro de la pantalla:
@@ -79,6 +78,11 @@ public class JFMuseo extends javax.swing.JFrame {
         jLabel1.setText("Sala:");
 
         jbConsultar.setText("Consultar");
+        jbConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbConsultarActionPerformed(evt);
+            }
+        });
 
         jlTotal.setText("Total de objetos:");
 
@@ -132,9 +136,14 @@ public class JFMuseo extends javax.swing.JFrame {
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         
-        if(jcSalas.getSelectedItem()!=null)
+       if(jcSalas.getSelectedItem()!=null)
             new JDNuevoObjeto(this, true, gestor, jcSalas.getSelectedItem().toString()).setVisible(true);
+        
     }//GEN-LAST:event_jbAgregarActionPerformed
+
+    private void jbConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConsultarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbConsultarActionPerformed
 
    
 
@@ -159,8 +168,9 @@ public class JFMuseo extends javax.swing.JFrame {
             tabla.setColumnIdentifiers(columnas);
             
            Sala s = (Sala)jcSalas.getSelectedItem();
+           
             if(s!=null){
-                jlTotal.setText("Total de objetos:" + s.getTotalObjetos());
+               // jlTotal.setText("Total de objetos:" + s.getTotalObjetos());
                 
                 String[] fila = new String[7];
                 for(ObjetoExp obj : s.getObjetos()){
@@ -182,8 +192,9 @@ public class JFMuseo extends javax.swing.JFrame {
                         fila[6] = o.getPais();
                     }
                     tabla.addRow(fila);
-                }
+                }           
                 jtObjetos.setModel(tabla);
+                jlTotal.setText("Total de objetos: " + s.totalObjetos());
             }  
         }
     }

@@ -4,14 +4,13 @@
  * and open the template in the editor.
  */
 package com.example.domain;
-
 import java.util.Calendar;
 
 /**
  *
  * @author MARTIN
  */
-public abstract class ObjetoExp {
+public abstract class ObjetoExp implements Comparable<ObjetoExp>{
 
     private int cod;
     private String nombre;
@@ -49,13 +48,29 @@ public abstract class ObjetoExp {
     public void setAnio(int anio) {
         this.anio = anio;
     }
-
+    
+    //Método: Mostrar datos...
     @Override
     public String toString() {
         return "Código: " + cod + "| Nombre: " + nombre + "| Año: " + anio;
     }
-
-   
-
     
+    public int antiguedad(){
+        int anioActual, ant;   
+        Calendar cal = Calendar.getInstance(); 
+        //año actual
+        anioActual =  cal.get(Calendar.YEAR);
+        
+        if(this.anio < 0)
+            ant =  Math.abs(this.anio) + anioActual;
+        else
+            ant = anioActual - this.anio;
+        
+        return ant; 
+    } 
+    
+    @Override
+    public int compareTo(ObjetoExp t) {
+        return this.antiguedad() - t.antiguedad();
+    }   
 }

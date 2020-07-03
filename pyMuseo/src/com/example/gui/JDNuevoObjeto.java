@@ -8,7 +8,7 @@ package com.example.gui;
 import com.example.domain.Historico;
 import com.example.domain.ObjetoExp;
 import com.example.domain.ObraArte;
-import com.example.services.GestorSala;
+import com.example.services.GestorMuseo;
 import java.io.FileOutputStream;
 import javax.swing.JOptionPane;
 
@@ -21,10 +21,10 @@ public class JDNuevoObjeto extends javax.swing.JDialog {
     /**
      * Creates new form JDNuevoObjeto
      */
-    private GestorSala gestor;
+    private GestorMuseo gestor;
     private String salaSeleccionada;
 
-    public JDNuevoObjeto(java.awt.Frame parent, boolean modal, GestorSala gestor, String sala) {
+    public JDNuevoObjeto(java.awt.Frame parent, boolean modal, GestorMuseo gestor, String sala) {
         super(parent, modal);
         this.gestor = gestor;
         this.salaSeleccionada = sala;
@@ -257,7 +257,7 @@ public class JDNuevoObjeto extends javax.swing.JDialog {
             } else {
                 o = new ObraArte(campo1, campo2, cod, nom, anio);
             }
-            gestor.agregarObjeto(o, salaSeleccionada);
+           gestor.agregarObjeto(o, salaSeleccionada);
             this.dispose();
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(this, "Error de números");
