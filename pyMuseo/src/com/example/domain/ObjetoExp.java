@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package com.example.domain;
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  *
  * @author MARTIN
  */
-public abstract class ObjetoExp implements Comparable<ObjetoExp>{
+public abstract class ObjetoExp implements Comparable<ObjetoExp>, Serializable{
 
     private int cod;
     private String nombre;

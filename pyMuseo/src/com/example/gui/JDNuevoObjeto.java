@@ -10,6 +10,9 @@ import com.example.domain.ObjetoExp;
 import com.example.domain.ObraArte;
 import com.example.services.GestorMuseo;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,6 +30,7 @@ public class JDNuevoObjeto extends javax.swing.JDialog {
     public JDNuevoObjeto(java.awt.Frame parent, boolean modal, GestorMuseo gestor, String sala) {
         super(parent, modal);
         this.gestor = gestor;
+        gestor = null;
         this.salaSeleccionada = sala;
         initComponents();
         jlbSala.setText("Sala: " + salaSeleccionada);
@@ -242,12 +246,11 @@ public class JDNuevoObjeto extends javax.swing.JDialog {
     private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
         String nom;
         int cod, anio;
-
-        try {
-            cod = Integer.parseInt(jtCodigo.getText());
+        gestor = null;
+        try{
             nom = jtNombre.getText();
+            cod = Integer.parseInt(jtCodigo.getText());
             anio = Integer.parseInt(jtAnio.getText());
-
             ObjetoExp o;
             String campo1 = jtExtra.getText();
             String campo2 = jtExtra2.getText();
@@ -257,15 +260,21 @@ public class JDNuevoObjeto extends javax.swing.JDialog {
             } else {
                 o = new ObraArte(campo1, campo2, cod, nom, anio);
             }
-           gestor.agregarObjeto(o, salaSeleccionada);
+
+            try {
+                gestor.agregarObjeto(o, salaSeleccionada);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "No se pudo registrar el objeto!");
+            }
             this.dispose();
-        } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(this, "Error de números");
-        }finally{
-            //Bloque que se ejecuta SIEMPRE...
-            //independiente si se presentó o no un error en el 
-            //catch.
+
+        } catch (NumberFormatException  e) {
+            JOptionPane.showMessageDialog(this, "Error NPI. Consulte con el Administrador", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        //Bloque que se ejecuta SIEMPRE...
+        //independiente si se presentó o no un error en el 
+        //catch.
     }//GEN-LAST:event_jbAceptarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed

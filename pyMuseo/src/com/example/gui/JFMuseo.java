@@ -31,7 +31,14 @@ public class JFMuseo extends javax.swing.JFrame {
         //registrando el escucha al boton Consultar:
         jbConsultar.addMouseListener(new EscuchaMouse());
         gestor = new GestorMuseo();
-        DefaultComboBoxModel modelo = new DefaultComboBoxModel(gestor.getSalas());
+        Object array[] = gestor.getSalas();
+        
+        DefaultComboBoxModel modelo;
+        if(array == null)
+            modelo = new DefaultComboBoxModel();
+        else
+            modelo = new DefaultComboBoxModel(array);
+        
         jcSalas.setModel(modelo);
         //abrir en el centro de la pantalla:
         setLocationRelativeTo(null);  

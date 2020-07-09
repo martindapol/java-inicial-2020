@@ -5,6 +5,7 @@
  */
 package com.example.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author MARTIN
  */
-public class Sala {
+public class Sala implements Serializable{
 
     private String nombre;
     private String ala;

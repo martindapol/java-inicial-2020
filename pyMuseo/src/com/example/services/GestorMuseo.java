@@ -9,6 +9,8 @@ import com.example.domain.Historico;
 import com.example.domain.ObjetoExp;
 import com.example.domain.ObraArte;
 import com.example.domain.Sala;
+import com.example.utils.PersistFile;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,26 +22,14 @@ public class GestorMuseo {
    private List<Sala> salas;
 
     public GestorMuseo() {
-        salas = new ArrayList<>();
-        
-        //Recuperar los objetos de mi modelo persistente(por ahora solo modo prueba):
-        //A modo de prueba:
-        Sala s1 = new Sala();
-        Sala s2 = new Sala();
-        
-        s1.setNombre("Sala A");
-        s1.setAla("Sur");
-        s1.agregarObjeto(new Historico("Central", "Africa", 1, "leon viejo", -300));
-        
-        s2.setNombre("Sala D");
-        s2.agregarObjeto(new ObraArte("Van Gogh", "Holanda",2,"Los girasoles", 1890));
-    
-        salas.add(s1);
-        salas.add(s2);
+        salas = PersistFile.read("museo.dat");
     }
 
     public Object[] getSalas() {
-       return salas.toArray();
+        if(salas != null)
+            return salas.toArray();
+        
+       return null;
     }
    
     public List consultarObjetosSala(String sala){
@@ -54,10 +44,11 @@ public class GestorMuseo {
         return aux;
     }
     
-     public void agregarObjeto(ObjetoExp obj, String s){
+     public void agregarObjeto(ObjetoExp obj, String s) throws IOException{
         for (Sala sala : salas) {
             if(sala.getNombre().equals(s)){
                 sala.addObjeto(obj);
+                PersistFile.save(salas, "museo.dat");
                 break;
             }
         }
